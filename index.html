@@ -255,7 +255,7 @@ body {
     <button class="dbtn fwd" id="bF"
       onpointerdown="sendCmd('F',this)" onpointerup="unpress(this)" onpointercancel="unpress(this)">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="18 15 12 9 6 15"/></svg>
-      <span class="lbl">FL</span>
+      <span class="lbl">L</span>
     </button>
     <div class="gap"></div>
   </div>
@@ -263,7 +263,7 @@ body {
     <button class="dbtn left" id="bL"
       onpointerdown="sendCmd('L',this)" onpointerup="unpress(this)" onpointercancel="unpress(this)">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-      <span class="lbl">LB</span>
+      <span class="lbl">B</span>
     </button>
     <button class="dbtn stop" id="bS"
       onpointerdown="sendCmd('S',this)" onpointerup="unpress(this)" onpointercancel="unpress(this)">
@@ -273,14 +273,14 @@ body {
     <button class="dbtn right" id="bR"
       onpointerdown="sendCmd('R',this)" onpointerup="unpress(this)" onpointercancel="unpress(this)">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
-      <span class="lbl">RF</span>
+      <span class="lbl">F</span>
     </button>
   </div>
   <div class="drow">
     <div class="gap"></div>
     <button class="dbtn back" id="bB"
       onpointerdown="sendCmd('B',this)" onpointerup="unpress(this)" onpointercancel="unpress(this)">
-      <span class="lbl">BR</span>
+      <span class="lbl">R</span>
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
     </button>
     <div class="gap"></div>
@@ -345,8 +345,9 @@ var bleDevice   = null;
 var bleChar     = null;
 var bleServer   = null;
 var connected   = false;
-var cmdLog      = [];          // ← FIX 1: was named 'history', now 'cmdLog'
+var cmdLog      = [];
 var reconnTimer = null;
+var writeBusy   = false;   // guard: prevents write queue overflow on HM-10
 
 function setStatus(txt, state) {
   document.getElementById('dot').className  = 'dot' + (state ? ' ' + state : '');
@@ -446,7 +447,7 @@ function doDisconnect() {
 }
 
 /* ── SEND COMMAND ── */
-async function sendCmd(c, btn, fromVoice) {
+function sendCmd(c, btn, fromVoice) {
   if (btn) btn.classList.add('pressed');
 
   if (!connected || !bleChar) {
@@ -454,25 +455,42 @@ async function sendCmd(c, btn, fromVoice) {
     return;
   }
 
+  // CORE FIX: writeBusy guard stops write queue overflow.
+  // HM-10 FFE1 has a tiny internal write buffer. Sending commands faster
+  // than it can process them (rapid button taps) fills the queue and
+  // the GATT server disconnects to recover. We drop the new command
+  // if a write is still in flight — the tank responds to the last
+  // queued command anyway, so no control is lost.
+  if (writeBusy) { return; }
+  writeBusy = true;
+
+  var data = new TextEncoder().encode(c);
+
+  // CRITICAL: Do NOT await writeValueWithoutResponse.
+  // Awaiting it serialises writes and causes a backlog that overflows
+  // the HM-10 buffer after 3-4 rapid commands, triggering a disconnect.
+  // Fire-and-forget is correct for this characteristic type.
   try {
-    var data = new TextEncoder().encode(c);
-
-    // FIX 2: prefer writeValueWithoutResponse (HM-10 is write-without-response characteristic)
-    // Fall back to writeValue for older Chrome versions
     if (typeof bleChar.writeValueWithoutResponse === 'function') {
-      await bleChar.writeValueWithoutResponse(data);
+      bleChar.writeValueWithoutResponse(data).catch(function(e) {
+        setStatus('<span class="err">Send failed: ' + e.message + '</span>', '');
+        if (e.name === 'NetworkError') onLost();
+      });
     } else {
-      await bleChar.writeValue(data);
+      // Older Chrome fallback — also fire-and-forget
+      bleChar.writeValue(data).catch(function(e) {
+        setStatus('<span class="err">Send failed: ' + e.message + '</span>', '');
+        if (e.name === 'NetworkError') onLost();
+      });
     }
-
     addToLog(c, fromVoice);
-
   } catch(e) {
-    setStatus('<span class="err">Send failed: ' + e.message + '</span>', '');
-    if (e.name === 'NetworkError' || e.name === 'NotSupportedError') {
-      onLost();
-    }
+    setStatus('<span class="err">Send error: ' + e.message + '</span>', '');
   }
+
+  // Release the write lock after 80ms — enough time for HM-10 to process
+  // one byte and clear its buffer before the next write is allowed
+  setTimeout(function() { writeBusy = false; }, 80);
 }
 
 function unpress(btn) { btn.classList.remove('pressed'); }

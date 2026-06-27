@@ -42,21 +42,21 @@ body {
 .dot.on   { background: #66bb6a; box-shadow: 0 0 6px #66bb6a99; }
 .dot.wait { background: #ffa726; }
 .status-txt { font-size: 13px; color: #78909c; flex: 1; line-height: 1.4; }
-.status-txt b   { color: #4fc3f7; font-weight: 700; }
-.status-txt .err{ color: #ef5350; }
+.status-txt b    { color: #4fc3f7; font-weight: 700; }
+.status-txt .err { color: #ef5350; }
 
 .btn-connect {
   background: #4fc3f7; color: #0a0c10;
   border: none; border-radius: 8px;
-  padding: 10px 18px; min-width: 100px;
+  padding: 10px 18px; min-width: 110px;
   font-family: inherit; font-size: 13px; font-weight: 700;
   letter-spacing: 1px; cursor: pointer; text-transform: uppercase;
   transition: background 0.15s, transform 0.1s; touch-action: manipulation;
   white-space: nowrap;
 }
-.btn-connect:active  { transform: scale(0.95); }
-.btn-connect.disc    { background: #ef5350; color: #fff; }
-.btn-connect:disabled{ background: #1e2a3a; color: #37474f; cursor: not-allowed; }
+.btn-connect:active   { transform: scale(0.95); }
+.btn-connect.disc     { background: #ef5350; color: #fff; }
+.btn-connect:disabled { background: #1e2a3a; color: #37474f; cursor: not-allowed; }
 
 .warn {
   width: 100%; max-width: 420px;
@@ -86,7 +86,6 @@ body {
 }
 .dbtn:active, .dbtn.pressed { transform: scale(0.88); }
 .dbtn .lbl { font-size: 26px; font-weight: 700; line-height: 1; }
-.dbtn .sub { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.6; }
 
 .fwd   { border-color: #29b6f6; color: #29b6f6; }
 .fwd.pressed,   .fwd:active   { background: #0a1e30; }
@@ -100,22 +99,17 @@ body {
 .stop.pressed,  .stop:active  { background: #200a0a; }
 .gap   { width: 88px; height: 88px; }
 
-/* ── VOICE SECTION ── */
+/* ── VOICE ── */
 .voice-section {
-  width: 100%; max-width: 420px;
-  margin-bottom: 14px;
+  width: 100%; max-width: 420px; margin-bottom: 14px;
 }
 .voice-label {
   font-size: 10px; color: #37474f; letter-spacing: 2px;
-  text-transform: uppercase; margin-bottom: 8px;
-  text-align: center;
+  text-transform: uppercase; margin-bottom: 8px; text-align: center;
 }
-
 .mic-btn {
-  width: 100%;
-  background: #0d1520;
-  border: 2px solid #1e3a2a;
-  border-radius: 14px;
+  width: 100%; background: #0d1520;
+  border: 2px solid #1e3a2a; border-radius: 14px;
   padding: 18px 16px;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
@@ -125,78 +119,52 @@ body {
   position: relative; overflow: hidden;
 }
 .mic-btn:active, .mic-btn.listening {
-  transform: scale(0.97);
-  border-color: #4caf50;
-  background: #071510;
+  transform: scale(0.97); border-color: #4caf50; background: #071510;
 }
-.mic-btn.listening { border-color: #4caf50; }
-
-/* ripple ring when listening */
 .mic-btn.listening::before {
-  content: '';
-  position: absolute;
-  width: 120px; height: 120px;
-  border-radius: 50%;
+  content: ''; position: absolute;
+  width: 120px; height: 120px; border-radius: 50%;
   border: 2px solid #4caf5055;
-  animation: ripple 1.2s ease-out infinite;
-  pointer-events: none;
+  animation: ripple 1.2s ease-out infinite; pointer-events: none;
 }
 .mic-btn.listening::after {
-  content: '';
-  position: absolute;
-  width: 120px; height: 120px;
-  border-radius: 50%;
+  content: ''; position: absolute;
+  width: 120px; height: 120px; border-radius: 50%;
   border: 2px solid #4caf5033;
-  animation: ripple 1.2s ease-out 0.4s infinite;
-  pointer-events: none;
+  animation: ripple 1.2s ease-out 0.4s infinite; pointer-events: none;
 }
 @keyframes ripple {
   0%   { transform: scale(0.4); opacity: 1; }
   100% { transform: scale(1.8); opacity: 0; }
 }
-
 .mic-icon-wrap {
-  width: 64px; height: 64px;
-  border-radius: 50%;
+  width: 64px; height: 64px; border-radius: 50%;
   background: #1e2a3a;
   display: flex; align-items: center; justify-content: center;
-  transition: background 0.15s;
-  position: relative; z-index: 1;
+  transition: background 0.15s; position: relative; z-index: 1;
 }
-.mic-btn.listening .mic-icon-wrap {
-  background: #1a3a20;
-}
+.mic-btn.listening .mic-icon-wrap { background: #1a3a20; }
 .mic-icon { font-size: 28px; line-height: 1; }
-
 .mic-main-text {
   font-size: 15px; font-weight: 700; letter-spacing: 1px;
   color: #78909c; text-transform: uppercase;
-  position: relative; z-index: 1;
-  transition: color 0.15s;
+  position: relative; z-index: 1; transition: color 0.15s;
 }
 .mic-btn.listening .mic-main-text { color: #4caf50; }
-
 .mic-sub-text {
   font-size: 11px; color: #37474f; letter-spacing: 0.5px;
   position: relative; z-index: 1;
 }
 .mic-btn.listening .mic-sub-text { color: #2e7d32; }
 
-/* voice transcript bubble */
 .voice-result {
-  margin-top: 8px;
-  background: #0d1520; border: 1px solid #1e2a3a;
-  border-radius: 10px; padding: 10px 14px;
-  min-height: 38px;
+  margin-top: 8px; background: #0d1520; border: 1px solid #1e2a3a;
+  border-radius: 10px; padding: 10px 14px; min-height: 38px;
   display: flex; align-items: center; gap: 10px;
 }
-.vr-heard  { font-size: 12px; color: #546e7a; flex: 1; }
+.vr-heard { font-size: 12px; color: #546e7a; flex: 1; }
 .vr-heard span { color: #cfd8dc; font-weight: 600; }
-.vr-cmd {
-  font-size: 13px; font-weight: 700; letter-spacing: 1px;
-  padding: 4px 12px; border-radius: 20px;
-  display: none;
-}
+.vr-cmd { font-size: 13px; font-weight: 700; letter-spacing: 1px; padding: 4px 12px; border-radius: 20px; display: none; }
 .vr-cmd.show { display: inline-block; }
 .vr-F { background:#0a1e30; color:#29b6f6; border:1px solid #29b6f644; }
 .vr-B { background:#091e22; color:#26c6da; border:1px solid #26c6da44; }
@@ -205,16 +173,13 @@ body {
 .vr-S { background:#200a0a; color:#ef5350; border:1px solid #ef535044; }
 .vr-none { background:#1a1200; color:#f9a825; border:1px solid #f9a82544; }
 
-/* voice commands cheatsheet */
 .voice-words {
   display: flex; flex-wrap: wrap; gap: 6px;
   margin-top: 8px; justify-content: center;
 }
 .vw {
-  font-size: 11px; padding: 3px 10px;
-  border-radius: 20px; border: 1px solid #1e2a3a;
-  color: #455a64; background: #0d1117;
-  letter-spacing: 0.5px;
+  font-size: 11px; padding: 3px 10px; border-radius: 20px;
+  border: 1px solid #1e2a3a; color: #455a64; background: #0d1117; letter-spacing: 0.5px;
 }
 
 /* ── LOG ── */
@@ -236,7 +201,7 @@ body {
 .pL { background:#091e22; color:#26c6da; border:1px solid #26c6da44; }
 .pR { background:#091e22; color:#26c6da; border:1px solid #26c6da44; }
 .pS { background:#200a0a; color:#ef5350; border:1px solid #ef535044; }
-.pill.voice-src::after { content: ' 🎤'; font-size: 9px; opacity: 0.7; }
+.pill.vsrc::after { content:' 🎤'; font-size:9px; opacity:0.7; }
 
 .hint {
   width: 100%; max-width: 420px;
@@ -263,7 +228,7 @@ body {
     <rect x="4" y="26" width="36" height="4" rx="2" fill="#37474f"/>
     <circle cx="10" cy="32" r="4" fill="#263238" stroke="#546e7a" stroke-width="1.5"/>
     <circle cx="22" cy="32" r="4" fill="#263238" stroke="#546e7a" stroke-width="1.5"/>
-    <circle cx="34" cy="32" r="4" fill="#263246" stroke-width="1.5"/>
+    <circle cx="34" cy="32" r="4" fill="#263238" stroke="#546e7a" stroke-width="1.5"/>
     <circle cx="10" cy="32" r="1.5" fill="#546e7a"/>
     <circle cx="22" cy="32" r="1.5" fill="#546e7a"/>
     <circle cx="34" cy="32" r="1.5" fill="#546e7a"/>
@@ -273,10 +238,9 @@ body {
 
 <div class="warn" id="warn">
   <strong>⚠ Chrome required</strong><br>
-  Web Bluetooth &amp; Voice only work in <strong>Chrome for Android</strong>. Samsung Internet, Firefox, and Safari will not work.
+  Web Bluetooth &amp; Voice only work in <strong>Chrome for Android</strong>.
 </div>
 
-<!-- BLE connect panel -->
 <div class="panel">
   <div class="status-row">
     <div class="dot" id="dot"></div>
@@ -285,63 +249,58 @@ body {
   </div>
 </div>
 
-<!-- D-Pad -->
 <div class="dpad">
   <div class="drow">
     <div class="gap"></div>
     <button class="dbtn fwd" id="bF"
-      onpointerdown="cmd('F',this)" onpointerup="unpress(this)" onpointercancel="unpress(this)">
+      onpointerdown="sendCmd('F',this)" onpointerup="unpress(this)" onpointercancel="unpress(this)">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="18 15 12 9 6 15"/></svg>
-      <span class="lbl">F</span>
+      <span class="lbl">FL</span>
     </button>
     <div class="gap"></div>
   </div>
   <div class="drow">
     <button class="dbtn left" id="bL"
-      onpointerdown="cmd('L',this)" onpointerup="unpress(this)" onpointercancel="unpress(this)">
+      onpointerdown="sendCmd('L',this)" onpointerup="unpress(this)" onpointercancel="unpress(this)">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-      <span class="lbl">L</span>
+      <span class="lbl">LB</span>
     </button>
     <button class="dbtn stop" id="bS"
-      onpointerdown="cmd('S',this)" onpointerup="unpress(this)" onpointercancel="unpress(this)">
+      onpointerdown="sendCmd('S',this)" onpointerup="unpress(this)" onpointercancel="unpress(this)">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
       <span class="lbl">S</span>
     </button>
     <button class="dbtn right" id="bR"
-      onpointerdown="cmd('R',this)" onpointerup="unpress(this)" onpointercancel="unpress(this)">
+      onpointerdown="sendCmd('R',this)" onpointerup="unpress(this)" onpointercancel="unpress(this)">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
-      <span class="lbl">R</span>
+      <span class="lbl">RF</span>
     </button>
   </div>
   <div class="drow">
     <div class="gap"></div>
     <button class="dbtn back" id="bB"
-      onpointerdown="cmd('B',this)" onpointerup="unpress(this)" onpointercancel="unpress(this)">
-      <span class="lbl">B</span>
+      onpointerdown="sendCmd('B',this)" onpointerup="unpress(this)" onpointercancel="unpress(this)">
+      <span class="lbl">BR</span>
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
     </button>
     <div class="gap"></div>
   </div>
 </div>
 
-<!-- Voice section -->
 <div class="voice-section">
   <div class="voice-label">🎤 Voice Command</div>
-
   <button class="mic-btn" id="micBtn"
     onpointerdown="startVoice()" onpointerup="stopVoice()" onpointercancel="stopVoice()">
     <div class="mic-icon-wrap">
       <span class="mic-icon">🎙️</span>
     </div>
-    <div class="mic-main-text" id="micMainText">Hold to Talk</div>
-    <div class="mic-sub-text" id="micSubText">Press &amp; hold, then say a command</div>
+    <div class="mic-main-text" id="micMain">Hold to Talk</div>
+    <div class="mic-sub-text" id="micSub">Press &amp; hold, then say a command</div>
   </button>
-
   <div class="voice-result">
     <div class="vr-heard" id="vrHeard">Say: Forward · Back · Left · Right · Stop</div>
     <span class="vr-cmd" id="vrCmd"></span>
   </div>
-
   <div class="voice-words">
     <span class="vw">forward</span>
     <span class="vw">backward / back / reverse</span>
@@ -351,36 +310,50 @@ body {
   </div>
 </div>
 
-<!-- Command log -->
 <div class="log">
   <div class="log-title">Command log</div>
-  <div class="log-pills" id="pills"><span style="font-size:12px;color:#263238">No commands sent yet</span></div>
+  <div class="log-pills" id="pills">
+    <span style="font-size:12px;color:#263238">No commands sent yet</span>
+  </div>
 </div>
 
 <div class="hint">
   <h3>Setup checklist</h3>
   <ol>
     <li>Open in <span class="hi">Chrome</span> on Android</li>
-    <li>Arduino powered on, HM-10 LED <span class="hi">blinking</span></li>
-    <li>Tap <span class="hi">CONNECT</span> → select HMSoft / BT05</li>
-    <li>Use D-pad buttons <span class="hi">or</span> hold the mic and speak</li>
+    <li>Arduino powered on, HM-10 LED <span class="hi">blinking</span> (not solid)</li>
+    <li>Tap <span class="hi">CONNECT</span> → select BT05 from the picker</li>
+    <li>Use D-pad buttons <span class="hi">or</span> hold mic and speak</li>
   </ol>
 </div>
 
 <script>
-/* ───── BLE ───── */
+/* ═══════════════════════════════════════
+   BLE — HM-10 (FFE0 / FFE1)
+   FIX 1: renamed log array to cmdLog (was 'history' — conflicts with window.history)
+   FIX 2: writeValueWithoutResponse() instead of deprecated writeValue()
+           HM-10 does not send BLE acknowledgements, so writeValue() causes
+           timeout errors and drops the connection on newer Chrome versions
+   FIX 3: auto-reconnect on unexpected disconnect
+═══════════════════════════════════════ */
+
 var SVC_SHORT = 0xFFE0;
 var SVC_FULL  = '0000ffe0-0000-1000-8000-00805f9b34fb';
 var CHAR_UUID = '0000ffe1-0000-1000-8000-00805f9b34fb';
 
-var bleDevice = null, bleChar = null, connected = false;
-var history = [];
+var bleDevice   = null;
+var bleChar     = null;
+var bleServer   = null;
+var connected   = false;
+var cmdLog      = [];          // ← FIX 1: was named 'history', now 'cmdLog'
+var reconnTimer = null;
 
 function setStatus(txt, state) {
-  document.getElementById('dot').className   = 'dot' + (state ? ' '+state : '');
-  document.getElementById('stxt').innerHTML  = txt;
+  document.getElementById('dot').className  = 'dot' + (state ? ' ' + state : '');
+  document.getElementById('stxt').innerHTML = txt;
 }
 
+/* ── CONNECT ── */
 function handleConnect() {
   if (!navigator.bluetooth) {
     document.getElementById('warn').classList.add('show');
@@ -395,103 +368,151 @@ async function doConnect() {
   var btn = document.getElementById('cbtn');
   btn.disabled = true;
   setStatus('Opening Bluetooth picker…', 'wait');
+
   try {
     bleDevice = await navigator.bluetooth.requestDevice({
       acceptAllDevices: true,
       optionalServices: [SVC_SHORT, SVC_FULL]
     });
   } catch(e) {
-    setStatus(e.name === 'NotFoundError' ? 'Picker cancelled' : 'Picker error: '+e.message, '');
-    btn.disabled = false; return;
+    setStatus(e.name === 'NotFoundError' ? 'Picker cancelled — tap CONNECT to retry' : 'Picker error: ' + e.message, '');
+    btn.disabled = false;
+    return;
   }
-  setStatus('Connecting to <b>'+(bleDevice.name||'device')+'</b>…', 'wait');
+
   bleDevice.addEventListener('gattserverdisconnected', onLost);
+  await connectGATT();
+}
+
+async function connectGATT() {
+  var btn = document.getElementById('cbtn');
+  setStatus('Connecting to <b>' + (bleDevice.name || 'device') + '</b>…', 'wait');
+  btn.disabled = true;
+
   try {
-    var server = await bleDevice.gatt.connect();
+    bleServer = await bleDevice.gatt.connect();
+
     var service;
-    try { service = await server.getPrimaryService(SVC_SHORT); }
-    catch(_) { service = await server.getPrimaryService(SVC_FULL); }
+    try        { service = await bleServer.getPrimaryService(SVC_SHORT); }
+    catch(_)   { service = await bleServer.getPrimaryService(SVC_FULL);  }
+
     bleChar = await service.getCharacteristic(CHAR_UUID);
+
     connected = true;
-    setStatus('Connected: <b>'+(bleDevice.name||bleDevice.id.slice(0,8))+'</b>', 'on');
+    clearTimeout(reconnTimer);
+    setStatus('Connected: <b>' + (bleDevice.name || bleDevice.id.slice(0,8)) + '</b>', 'on');
     btn.textContent = 'DISCONNECT';
     btn.classList.add('disc');
     btn.disabled = false;
+
   } catch(e) {
-    setStatus('<span class="err">GATT error: '+e.message+'</span>', '');
-    btn.textContent = 'CONNECT'; btn.classList.remove('disc'); btn.disabled = false;
-    bleDevice = null; bleChar = null;
+    setStatus('<span class="err">Connect failed: ' + e.message + '</span>', '');
+    btn.textContent = 'CONNECT';
+    btn.classList.remove('disc');
+    btn.disabled = false;
+    bleChar = null;
   }
 }
 
+/* ── DISCONNECT / RECONNECT ── */
 function onLost() {
-  connected = false; bleChar = null;
-  setStatus('Disconnected — tap CONNECT to reconnect', '');
-  var btn = document.getElementById('cbtn');
-  btn.textContent = 'CONNECT'; btn.classList.remove('disc'); btn.disabled = false;
+  connected = false;
+  bleChar   = null;
+  var btn   = document.getElementById('cbtn');
+  btn.textContent = 'CONNECT';
+  btn.classList.remove('disc');
+  btn.disabled = false;
+
+  // Auto-reconnect after 2 seconds (HM-10 sometimes drops briefly on idle)
+  setStatus('Connection lost — reconnecting…', 'wait');
+  clearTimeout(reconnTimer);
+  reconnTimer = setTimeout(function() {
+    if (!connected && bleDevice) {
+      connectGATT();
+    }
+  }, 2000);
 }
 
 function doDisconnect() {
+  clearTimeout(reconnTimer);
+  bleDevice.removeEventListener('gattserverdisconnected', onLost);
   if (bleDevice && bleDevice.gatt.connected) bleDevice.gatt.disconnect();
-  onLost();
+  connected = false; bleChar = null;
+  setStatus('Disconnected — tap CONNECT to reconnect', '');
+  var btn = document.getElementById('cbtn');
+  btn.textContent = 'CONNECT';
+  btn.classList.remove('disc');
+  btn.disabled = false;
 }
 
-async function cmd(c, btn, fromVoice) {
+/* ── SEND COMMAND ── */
+async function sendCmd(c, btn, fromVoice) {
   if (btn) btn.classList.add('pressed');
+
   if (!connected || !bleChar) {
     setStatus('<span class="err">Not connected — tap CONNECT first</span>', '');
     return;
   }
+
   try {
-    await bleChar.writeValue(new TextEncoder().encode(c));
-    addLog(c, fromVoice);
+    var data = new TextEncoder().encode(c);
+
+    // FIX 2: prefer writeValueWithoutResponse (HM-10 is write-without-response characteristic)
+    // Fall back to writeValue for older Chrome versions
+    if (typeof bleChar.writeValueWithoutResponse === 'function') {
+      await bleChar.writeValueWithoutResponse(data);
+    } else {
+      await bleChar.writeValue(data);
+    }
+
+    addToLog(c, fromVoice);
+
   } catch(e) {
-    setStatus('<span class="err">Send failed: '+e.message+'</span>', '');
-    if (e.name === 'NetworkError') onLost();
+    setStatus('<span class="err">Send failed: ' + e.message + '</span>', '');
+    if (e.name === 'NetworkError' || e.name === 'NotSupportedError') {
+      onLost();
+    }
   }
 }
 
 function unpress(btn) { btn.classList.remove('pressed'); }
 
-function addLog(c, fromVoice) {
-  var names = {F:'FORWARD',B:'BACKWARD',L:'LEFT',R:'RIGHT',S:'STOP'};
-  history.unshift({c:c, v:!!fromVoice});
-  if (history.length > 10) history.pop();
+/* ── COMMAND LOG ──
+   FIX 1: array is now called cmdLog, not history
+   window.history is a browser built-in — naming a var 'history' shadows it
+   and .unshift() throws "history.unshift is not a function" ── */
+var NAMES = { F:'FORWARD', B:'BACKWARD', L:'LEFT', R:'RIGHT', S:'STOP' };
+
+function addToLog(c, fromVoice) {
+  cmdLog.unshift({ c: c, v: !!fromVoice });        // was: history.unshift(...)
+  if (cmdLog.length > 10) cmdLog.pop();
   var el = document.getElementById('pills');
-  el.innerHTML = history.map(function(x) {
-    return '<span class="pill p'+x.c+(x.v?' voice-src':'')+'">'
-      + x.c + ' · ' + names[x.c] + '</span>';
+  el.innerHTML = cmdLog.map(function(x) {
+    return '<span class="pill p' + x.c + (x.v ? ' vsrc' : '') + '">'
+         + x.c + ' · ' + NAMES[x.c] + '</span>';
   }).join('');
 }
 
-/* ───── VOICE ───── */
-var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-var recognition = null;
+/* ═══════════════════════════════════════
+   VOICE — Web Speech API
+═══════════════════════════════════════ */
+var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+var recog       = null;
 var voiceActive = false;
 
-// Map of phrases → commands
-// Covers common variations / mishearings
 var VOICE_MAP = {
-  // Forward
-  'forward':1, 'forwards':1, 'go forward':1, 'move forward':1,
-  'go':1, 'ahead':1, 'straight':1, 'go ahead':1,
-  // Backward
-  'backward':2, 'backwards':2, 'back':2, 'reverse':2, 'go back':2,
-  'move back':2, 'go backwards':2, 'move backwards':2, 'behind':2,
-  // Left
-  'left':3, 'go left':3, 'turn left':3, 'move left':3,
-  // Right
-  'right':4, 'go right':4, 'turn right':4, 'move right':4,
-  // Stop
-  'stop':5, 'halt':5, 'brake':5, 'freeze':5, 'hold':5,
-  'pause':5, 'cease':5, 'stay':5, 'wait':5, 'cancel':5
+  'forward':1,'forwards':1,'go forward':1,'go':1,'ahead':1,'straight':1,'move forward':1,
+  'backward':2,'backwards':2,'back':2,'reverse':2,'go back':2,'move back':2,'go backwards':2,
+  'left':3,'go left':3,'turn left':3,'move left':3,
+  'right':4,'go right':4,'turn right':4,'move right':4,
+  'stop':5,'halt':5,'brake':5,'freeze':5,'hold':5,'pause':5,'cease':5,'wait':5,'stay':5
 };
-var CMD_LETTER = {1:'F', 2:'B', 3:'L', 4:'R', 5:'S'};
-var CMD_NAME   = {1:'FORWARD', 2:'BACKWARD', 3:'LEFT', 4:'RIGHT', 5:'STOP'};
+var CMD_LETTER = { 1:'F', 2:'B', 3:'L', 4:'R', 5:'S' };
+var CMD_NAME   = { 1:'FORWARD', 2:'BACKWARD', 3:'LEFT', 4:'RIGHT', 5:'STOP' };
 
-function initRecognition() {
-  if (!SpeechRecognition) return null;
-  var r = new SpeechRecognition();
+function buildRecog() {
+  if (!SR) return null;
+  var r = new SR();
   r.lang = 'en-US';
   r.continuous = false;
   r.interimResults = true;
@@ -499,56 +520,44 @@ function initRecognition() {
 
   r.onresult = function(e) {
     var transcript = '';
-    var isFinal = false;
+    var isFinal    = false;
     for (var i = e.resultIndex; i < e.results.length; i++) {
       transcript = e.results[i][0].transcript.trim().toLowerCase();
       isFinal    = e.results[i].isFinal;
     }
-    showHeard(transcript, false);
+    showHeard(transcript, null);
 
-    if (isFinal || transcript.length > 2) {
-      // Check all alternatives for a command match
+    if (isFinal || transcript.length > 1) {
       var matched = null;
       outer:
       for (var ri = e.resultIndex; ri < e.results.length; ri++) {
         for (var ai = 0; ai < e.results[ri].length; ai++) {
           var alt = e.results[ri][ai].transcript.trim().toLowerCase();
-          // Try exact match first
           if (VOICE_MAP[alt]) { matched = VOICE_MAP[alt]; break outer; }
-          // Try contains match
-          var words = Object.keys(VOICE_MAP);
-          for (var wi = 0; wi < words.length; wi++) {
-            if (alt.indexOf(words[wi]) !== -1) {
-              matched = VOICE_MAP[words[wi]]; break outer;
-            }
+          var keys = Object.keys(VOICE_MAP);
+          for (var ki = 0; ki < keys.length; ki++) {
+            if (alt.indexOf(keys[ki]) !== -1) { matched = VOICE_MAP[keys[ki]]; break outer; }
           }
         }
       }
       if (matched) {
-        var letter = CMD_LETTER[matched];
         showHeard(transcript, matched);
-        cmd(letter, null, true);
+        sendCmd(CMD_LETTER[matched], null, true);
       }
     }
   };
 
   r.onerror = function(e) {
-    if (e.error === 'no-speech') {
-      showHeard('No speech detected', false);
-    } else if (e.error !== 'aborted') {
-      showHeard('Mic error: ' + e.error, false);
-    }
-    setMicIdle();
+    if (e.error !== 'aborted') showHeard(e.error === 'no-speech' ? 'No speech detected' : 'Mic error: ' + e.error, null);
+    micIdle();
   };
-
-  r.onend = function() { setMicIdle(); };
+  r.onend = function() { micIdle(); };
   return r;
 }
 
 function showHeard(text, matchedCode) {
   var heardEl = document.getElementById('vrHeard');
   var cmdEl   = document.getElementById('vrCmd');
-
   if (matchedCode) {
     heardEl.innerHTML = 'Heard: <span>"' + text + '"</span>';
     cmdEl.className   = 'vr-cmd show vr-' + CMD_LETTER[matchedCode];
@@ -563,59 +572,49 @@ function showHeard(text, matchedCode) {
   }
 }
 
-function setMicListening() {
+function micListening() {
   voiceActive = true;
   document.getElementById('micBtn').classList.add('listening');
-  document.getElementById('micMainText').textContent = 'Listening…';
-  document.getElementById('micSubText').textContent  = 'Say a command now';
+  document.getElementById('micMain').textContent = 'Listening…';
+  document.getElementById('micSub').textContent  = 'Say a command now';
 }
-
-function setMicIdle() {
+function micIdle() {
   voiceActive = false;
   document.getElementById('micBtn').classList.remove('listening');
-  document.getElementById('micMainText').textContent = 'Hold to Talk';
-  document.getElementById('micSubText').textContent  = 'Press & hold, then say a command';
+  document.getElementById('micMain').textContent = 'Hold to Talk';
+  document.getElementById('micSub').textContent  = 'Press & hold, then say a command';
 }
 
 function startVoice() {
-  if (!SpeechRecognition) {
-    showHeard('Speech not supported in this browser', false);
-    return;
-  }
+  if (!SR) { showHeard('Speech not supported — use Chrome', null); return; }
   if (voiceActive) return;
-  showHeard('', false);
-
-  if (!recognition) recognition = initRecognition();
+  showHeard('', null);
+  if (!recog) recog = buildRecog();
   try {
-    recognition.start();
-    setMicListening();
-  } catch(e) {
-    // already started — restart
-    try { recognition.abort(); } catch(_){}
-    recognition = initRecognition();
-    recognition.start();
-    setMicListening();
+    recog.start(); micListening();
+  } catch(_) {
+    try { recog.abort(); } catch(__) {}
+    recog = buildRecog();
+    recog.start(); micListening();
   }
 }
-
 function stopVoice() {
-  if (!recognition || !voiceActive) return;
-  try { recognition.stop(); } catch(_){}
-  // setMicIdle() is called by r.onend
+  if (!recog || !voiceActive) return;
+  try { recog.stop(); } catch(_) {}
 }
 
-/* ───── KEYBOARD (desktop testing) ───── */
-var keymap = {ArrowUp:'F',ArrowDown:'B',ArrowLeft:'L',ArrowRight:'R',' ':'S',f:'F',b:'B',l:'L',r:'R',s:'S'};
-var btnmap  = {F:'bF',B:'bB',L:'bL',R:'bR',S:'bS'};
+/* ── KEYBOARD (desktop) ── */
+var KMAP = { ArrowUp:'F', ArrowDown:'B', ArrowLeft:'L', ArrowRight:'R', ' ':'S', f:'F', b:'B', l:'L', r:'R', s:'S' };
+var BMAP = { F:'bF', B:'bB', L:'bL', R:'bR', S:'bS' };
 document.addEventListener('keydown', function(e) {
-  var c = keymap[e.key]; if (!c) return;
-  var b = document.getElementById(btnmap[c]);
-  if (b) cmd(c, b);
+  var c = KMAP[e.key]; if (!c) return;
+  var b = document.getElementById(BMAP[c]);
+  if (b) sendCmd(c, b);
   e.preventDefault();
 });
 document.addEventListener('keyup', function() {
-  ['bF','bB','bL','bR','bS'].forEach(function(id){
-    var b = document.getElementById(id); if(b) b.classList.remove('pressed');
+  ['bF','bB','bL','bR','bS'].forEach(function(id) {
+    var b = document.getElementById(id); if (b) b.classList.remove('pressed');
   });
 });
 
